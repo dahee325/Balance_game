@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<div class="container">
+  <div class="d-flex justify-content-center">
+    <div class="card" style="width: 18rem;">
+      <div class="card-body text-bg-primary">
+        <h5 class="card-title">{{article.title}}</h5>
+        <p class="card-text">{{article.A}}</p>
+      </div>
+    </div>
+    
+    
+    <div class="card" style="width: 18rem;">
+    <div class="card-body text-bg-danger">
+      <h5 class="card-title">{{article.title}}</h5>
+      <p class="card-text">{{article.B}}</p>
+    </div>
+  </div>
+</div>
+
+<hr>
+
+<div class="d-flex justify-content-center">
+  <form action="{% url 'questions:comment_create' article.id %}" method="POST">
+    {% csrf_token %}
+    {{form}}
+    <input type="submit" class="btn btn-primary mt-3">
+  </form>
+  
+</div>
+
+<hr>
+
+<h1 class="mb-3">Answer</h1>
+
+{% for comment in comments %}
+<div class="card mb-3 {% if comment.AB == 'A' %} bg-primary text-white {% else %} bg-danger text-white {% endif %}">
+  <div class="card-body">
+    <p class="card-text">{{comment.AB}}-{{comment.content}}</p>
+  </div>
+</div>
+{% endfor %}
+
+</div>
+{% endblock %}
