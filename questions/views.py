@@ -31,13 +31,17 @@ def index(request):
 
 def detail(request, id):
     article = Article.objects.get(id=id)
-    comments = article.comment_set.all()
     form = CommentForm()
+    comments = article.comment_set.all()
+    count_A = article.comment_set.filter(AB='A').count()
+    count_B = article.comment_set.filter(AB='B').count()
 
     context = {
         'article': article,
         'form': form,
         'comments': comments,
+        'count_A': count_A,
+        'count_B': count_B,
     }
 
     return render(request, 'detail.html', context)
